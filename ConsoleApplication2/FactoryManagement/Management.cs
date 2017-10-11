@@ -43,7 +43,7 @@ namespace FactoryManagement
                         case 4: DeleteEmployees(); break;
                         case 5: EditEmployee(); break;
                     }
-
+                Console.WriteLine("*=========================================*");
                 Console.WriteLine("Do you want continute use program? (y/n)");
                 continute = Console.ReadLine();
             }
@@ -61,6 +61,51 @@ namespace FactoryManagement
         }
 
         private static void FindEmployees()
+        {
+            Console.WriteLine("Please enter mode find? (1) or (2)");
+            Console.WriteLine("1 - Find by name \n 2 - Find by position");
+            Console.WriteLine("=> Your choose: ");
+            string strChoose = Console.ReadLine();
+            int choose;
+            while (!int.TryParse(strChoose, out choose) || choose < 1 || choose > 2)
+            {
+                Console.WriteLine("Please re-enter your choose: ");
+                strChoose = Console.ReadLine();
+            }
+            if (choose == 1)
+            {
+                FindByName();
+            }
+            else
+            {
+                FindByPosition();
+            }
+        }
+
+        private static void FindByPosition()
+        {
+            PrintBreakSection();
+            Console.WriteLine("Enter position you want to find? (1), (2) or (3)");
+            Console.WriteLine("1 - Find Engineer | 2 - Find Staff | 3 - Find Worker");
+            Console.WriteLine("=> Your choose: ");
+            string strChoose = Console.ReadLine();
+            int choose;
+            while (!int.TryParse(strChoose, out choose) || choose < 1 || choose > 3)
+            {
+                Console.WriteLine("Please re-enter your choose: ");
+                strChoose = Console.ReadLine();
+            }
+
+        }
+
+        private static void PrintBreakSection()
+        {
+            for (int i = 0; i < 20; i++)
+                Console.Write("=");
+            Console.Write("\n");
+        }
+
+        private static void FindByName()
         {
             throw new NotImplementedException();
         }
