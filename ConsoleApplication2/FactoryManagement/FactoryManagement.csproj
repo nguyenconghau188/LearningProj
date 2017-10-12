@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFind.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Demo.cs" />
     <Compile Include="Engineer.cs" />

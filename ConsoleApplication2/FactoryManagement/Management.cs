@@ -95,7 +95,32 @@ namespace FactoryManagement
                 Console.WriteLine("Please re-enter your choose: ");
                 strChoose = Console.ReadLine();
             }
-
+            Position pos;
+            if (choose == 1)
+            {
+                pos = Position.ENGINEER;
+            }
+            else if ( choose == 2)
+            {
+                pos = Position.STAFF;
+            }
+            else
+            {
+                pos = Position.WORKER;
+            }
+            ArrayList lstResult = ActionFind.FindEmployeesByPosition(listPeople, pos);
+            if (lstResult.Count > 0)
+            {
+                Console.WriteLine("=> Find result: ");
+                foreach (People worker in lstResult)
+                {
+                    Console.WriteLine(worker.ToString());
+                }
+            }
+            else
+            {
+                Console.WriteLine("=> Find NO result.");
+            }
         }
 
         private static void PrintBreakSection()
@@ -107,7 +132,22 @@ namespace FactoryManagement
 
         private static void FindByName()
         {
-            throw new NotImplementedException();
+            PrintBreakSection();
+            Console.WriteLine("Enter name you want find: ");
+            string name = Console.ReadLine();
+            ArrayList lstResult = ActionFind.FindEmployeesByName(listPeople, name);
+            if (lstResult.Count > 0)
+            {
+                Console.WriteLine("=> Find result: ");
+                foreach (People worker in lstResult)
+                {
+                    Console.WriteLine(worker.ToString());
+                }
+            }
+            else
+            {
+                Console.WriteLine("=> Find NO result.");
+            }
         }
 
         private static void PrintEmployees()
@@ -127,17 +167,29 @@ namespace FactoryManagement
 
         public static void AddPeople()
         {
-            int choose;
-            Console.WriteLine("Please enter number you want to input: ");
-            Console.WriteLine("1. Staff | 2. Engineer | 3. Worker");
-            choose = int.Parse(Console.ReadLine());
-
-            switch (choose)
+            string continute;
+            do
             {
-                case 1: StaffInput(); break;
-                case 2: EngineerInput(); break;
-                case 3: WorkerInput(); break;
+                Console.WriteLine("Please enter number you want to input: ");
+                Console.WriteLine("1. Staff | 2. Engineer | 3. Worker");
+                string strChoose = Console.ReadLine();
+                int choose;
+                while (!int.TryParse(strChoose, out choose) || choose < 1 || choose > 3)
+                {
+                    Console.WriteLine("Please re-enter your choose: ");
+                    strChoose = Console.ReadLine();
+                }
+                switch (choose)
+                {
+                    case 1: StaffInput(); break;
+                    case 2: EngineerInput(); break;
+                    case 3: WorkerInput(); break;
+                }
+                PrintBreakSection();
+                Console.WriteLine("Do you want continute add an employee? (y/n)");
+                continute = Console.ReadLine();
             }
+            while (continute == "y" || continute == "Y");
         }
 
         private static void WorkerInput()
