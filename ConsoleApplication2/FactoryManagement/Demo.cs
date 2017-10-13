@@ -10,6 +10,11 @@ namespace FactoryManagement
     {
         public static void Main(string[] args)
         {
+            ActionXML.CreateXML();
+        }
+        //test
+        public void Test()
+        {
             Management.Manage();
             //People people = new People();
             //people.name = "Tom";
