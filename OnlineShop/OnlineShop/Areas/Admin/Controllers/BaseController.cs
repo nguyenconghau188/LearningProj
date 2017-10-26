@@ -15,7 +15,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (session == null)
             {
                 filterContext.Result = new RedirectToRouteResult(
-                    new System.Web.Routing.RouteValueDictionary(new { controller = "Login", action = "login", Areas= "Admin"}));
+                    new System.Web.Routing.RouteValueDictionary(new { controller = "Login", action = "Login", Areas= "Admin"}));
             }
             base.OnActionExecuted(filterContext);
         }
