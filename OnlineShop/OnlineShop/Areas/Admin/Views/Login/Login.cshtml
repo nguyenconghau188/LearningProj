@@ -36,6 +36,7 @@
                     <div class="panel-body">
                         @using (Html.BeginForm("Login", "Login", FormMethod.Post))
                         {
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" });
                             <fieldset>
                                 <div class="form-group">
                                     @*<input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>*@

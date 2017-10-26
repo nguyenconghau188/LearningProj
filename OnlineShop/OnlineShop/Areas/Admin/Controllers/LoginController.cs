@@ -22,8 +22,8 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var dao = new UserDao();
-                var result = dao.Login(model.Username, model.Password);
-                if (result)
+                var result = dao.Login(model.Username, Encryptor.MD5Hash(model.Password));
+                if (result == DefinedParam.LOGIN_SUCCESS)
                 {
                     var user = dao.GetByUsername(model.Username);
                     var userSession = new UserLogin();
@@ -32,9 +32,17 @@ namespace OnlineShop.Areas.Admin.Controllers
                     Session.Add(CommonConstants.USER_SESSION, userSession);
                     return RedirectToAction("Index", "Home");
                 }
-                else
+                else if (result == DefinedParam.LOGIN_NULL)
                 {
-                    ModelState.AddModelError("", "Đăng nhập không thành công");
+                    ModelState.AddModelError("", "Username can't found!");
+                }
+                else if (result == DefinedParam.LOGIN_FALSE_PASSWORD)
+                {
+                    ModelState.AddModelError("", "Wrong password!");
+                }
+                else if (result == DefinedParam.LOGIN_FALSE)
+                {
+                    ModelState.AddModelError("", "Username in ban list!");
                 }
             }
             return View("Login");        
