@@ -39,7 +39,15 @@ Route::get('Route1', ['as'=>'MyRoute', function() {
 	echo "Xin chao cac ban";
 }]);
 
+Route::get('Route2', function(){
+	echo "Day la route2";
+})->name('MyRoute2');
+
 //goi route bang redirect
 Route::get('GoiTen', function(){
 	return redirect()->route('MyRoute');
+});
+
+Route::get('GoiTen2', function(){
+	return redirect()->route('MyRoute2');
 });
