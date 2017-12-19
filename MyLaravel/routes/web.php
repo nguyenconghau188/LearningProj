@@ -33,3 +33,13 @@ Route::get('NgaySinh/{ngaysinh}', function($ngaysinh)
 {
 	echo "Ngay sinh: ".$ngaysinh;
 })->where(['ngaysinh'=>'[0-9]+']);
+
+//dat dinh danh cho route
+Route::get('Route1', ['as'=>'MyRoute', function() {
+	echo "Xin chao cac ban";
+}]);
+
+//goi route bang redirect
+Route::get('GoiTen', function(){
+	return redirect()->route('MyRoute');
+});
