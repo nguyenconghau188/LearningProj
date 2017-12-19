@@ -22,3 +22,8 @@ Route::get('KhoaHoc', function() {
 Route::get('KhoaPham/Laravel', function() {
 	echo "XIN CHAO CAC BAN";
 });
+
+//truyen tham so tren route
+Route::get('HoTen/{ten}', function($ten){
+	echo "Ten cua ban la: ".$ten;
+});
