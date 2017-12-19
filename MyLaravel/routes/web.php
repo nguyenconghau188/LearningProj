@@ -67,3 +67,6 @@ Route::group(['prefix'=>'MyGroup'], function(){
 
 //goi controller
 Route::get('GoiController', 'MyController@XinChao');
+
+//goi controller va truyen tham so
+Route::get('TruyenThamSo/{ten}', 'MyController@KhoaHoc');
