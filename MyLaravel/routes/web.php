@@ -27,3 +27,9 @@ Route::get('KhoaPham/Laravel', function() {
 Route::get('HoTen/{ten}', function($ten){
 	echo "Ten cua ban la: ".$ten;
 });
+
+//truyen tham so co dieu kien tren route
+Route::get('NgaySinh/{ngaysinh}', function($ngaysinh)
+{
+	echo "Ngay sinh: ".$ngaysinh;
+})->where(['ngaysinh'=>'[0-9]+']);
