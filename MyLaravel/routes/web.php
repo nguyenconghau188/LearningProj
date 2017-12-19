@@ -51,3 +51,19 @@ Route::get('GoiTen', function(){
 Route::get('GoiTen2', function(){
 	return redirect()->route('MyRoute2');
 });
+
+//tao Group route
+Route::group(['prefix'=>'MyGroup'], function(){
+	Route::get('User1', function(){
+		return "User1";
+	});
+	Route::get('User2', function(){
+		return "User2";
+	});
+	Route::get('User3', function(){
+		return "User3";
+	});
+});
+
+//goi controller
+Route::get('GoiController', 'MyController@XinChao');
