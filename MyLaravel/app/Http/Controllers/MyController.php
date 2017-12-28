@@ -19,4 +19,31 @@ class MyController extends Controller
     	//redirect ve Route1
     	return redirect()->route('MyRoute');
     }
+
+    public function GetURL(Request $request)
+    {
+    	// if ($request->isMethod('post'))
+    	// {
+    	// 	echo "Get method";
+    	// }
+    	// else
+    	// {
+    	// 	echo "Not get method";
+    	// }
+    	return $request->url();
+    }
+
+    public function postForm(Request $request)
+    {
+    	// echo "Ten cua ban la: <br>";
+    	// echo $request->HoTen;
+    	if ($request->has('Tuoi'))
+    	{
+    		echo "Co tham so tuoi";
+    	}
+    	else 
+    	{
+    		echo "Khong co tham so tuoi";
+    	}
+    }
 }

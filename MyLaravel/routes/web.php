@@ -70,3 +70,13 @@ Route::get('GoiController', 'MyController@XinChao');
 
 //goi controller va truyen tham so
 Route::get('TruyenThamSo/{ten}', 'MyController@KhoaHoc');
+
+//URL
+Route::get('MyRequest', 'MyController@GetURL');
+
+//gui nhan du lieu voi request
+Route::get('getForm', function(){
+	return view('postForm');
+});
+
+Route::post('postForm', ['as'=>'postForm', 'uses'=>'MyController@postForm']);
