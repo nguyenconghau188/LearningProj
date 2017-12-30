@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class MyController extends Controller
 {
@@ -44,6 +45,33 @@ class MyController extends Controller
     	else 
     	{
     		echo "Khong co tham so tuoi";
+    	}
+    }
+
+    public function setCookie()
+    {
+    	$response = new Response();
+    	$response->withCookie('KhoaHoc', 'Laravel - Khoa Pham', 1);
+    	return $response;
+    }
+
+    public function getCookie(Request $request)
+    {
+    	return $request->cookie('KhoaHoc');
+    }
+
+    //upload file
+    public function postFile(Request $request)
+    {
+    	if($request->hasFile('myFile'))
+    	{
+    		//echo "Da co file";
+    		$file = $request->file('myFile');
+    		$file->move('image', 'my_new_file.jpg');
+    	}
+    	else
+    	{
+    		echo "Chua co file";
     	}
     }
 }
