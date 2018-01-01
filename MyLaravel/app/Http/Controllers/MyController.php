@@ -67,11 +67,29 @@ class MyController extends Controller
     	{
     		//echo "Da co file";
     		$file = $request->file('myFile');
-    		$file->move('image', 'my_new_file.jpg');
+    		if ($file->getClientOriginalExtension('myFile') == "JPG")
+    		{
+
+    			$fileName = $file->getClientOriginalName('myFile');
+    			$file->move('image', $fileName);	
+    			echo "Da luu file :".$fileName;
+    		}
+    		else
+    		{
+    			echo "Khong duoc phep upload file";
+    		}
+
     	}
     	else
     	{
     		echo "Chua co file";
     	}
+    }
+
+    //json
+    public function getJson()
+    {
+    	$array = ['KhoaHoc'=>'Laravel-KhoaPham'];
+    	return response()->json($array);
     }
 }
