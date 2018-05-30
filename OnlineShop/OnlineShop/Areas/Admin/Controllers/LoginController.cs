@@ -30,7 +30,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                     userSession.Username = user.UserName;
                     userSession.UserID = user.ID;
                     Session.Add(CommonConstants.USER_SESSION, userSession);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "User");
                 }
                 else if (result == DefinedParam.LOGIN_NULL)
                 {

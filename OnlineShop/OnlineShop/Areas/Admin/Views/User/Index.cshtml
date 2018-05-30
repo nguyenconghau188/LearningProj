@@ -1,0 +1,94 @@
+﻿@model OnlineShop.Areas.Admin.Models.AdminModels
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section header{
+    Enter user information
+}
+<script type="text/javascript">
+    function CheckInputForm() {
+        if (document.getElementById("Username").val == null) {
+            alert("Please enter Username!");
+            document.getElementById("Username").focus();
+        }
+        else if (document.getElementById("Password") == null){
+            alert("Please enter Password!");
+            document.getElementById("Password").focus();
+        }
+        else if (document.getElementById("Password").val != document.getElementById("ConfirmPassword").val) {
+            alert("Password and Confirm Password are different!");
+            document.getElementById("Password").val = '';
+            document.getElementById("PasswordConfirm").val = '';
+            document.getElementById("Password").focus();
+        }
+        else {
+            document.forms[0].submit();
+        }
+    }
+</script>
+
+@using (Html.BeginForm("Create", "User", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Enter user information
+                </div>
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label>User Name</label>
+                                    <input class="form-control" name="Username" id="Username" autofocus/>
+                                    @Html.ValidationMessage("Username", "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input class="form-control" name="Password" type="password" id="Password" />
+                                    @Html.ValidationMessage("Password", "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <label>Confirm Password</label>
+                                    <input class="form-control" id="ConfirmPassword" type="password"/>                            
+                                </div>
+                                <div class="form-group">
+                                    <label>Full name</label>
+                                    <input class="form-control" name="Name" />
+                                    @Html.ValidationMessage("Name", "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <input class="form-control" name="Address" />
+                                    @Html.ValidationMessage("Address", "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input class="form-control" name="Email" />
+                                    @Html.ValidationMessage("Email", "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone number</label>
+                                    <input class="form-control" name="Phone" />
+                                    @Html.ValidationMessage("Phone", "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="button" value="Create" class="btn btn-default" onclick="CheckInputForm();"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
