@@ -1,0 +1,140 @@
+/*
+@Author: DungTT
+@Date: 12 Jun 2018
+@brief:
+@Name: Auto Mail
+*/
+
+function onOpen() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var menu = [ 
+
+    {name: "Step 1: Authorize", functionName: "initialize"},
+    /*{name: "Step 2: Fetch Messages", functionName: "initialize_"},*/
+    {name: "Set Schedule for Messages", functionName: "setSchedule"},
+    null,
+  ];  
+  ss.addMenu("L&D Tab", menu);
+}
+
+function initialize() {
+
+    /* Clear the current sheet */
+    /*var sheet = SpreadsheetApp.getActiveSheet();
+    sheet.getRange(2, 1, sheet.getLastRow() + 1, 5).clearContent();*/
+
+    /* Delete all existing triggers */
+    var triggers = ScriptApp.getProjectTriggers();
+    for (var i = 0; i < triggers.length; i++) {
+        if (triggers[i].getHandlerFunction() === "sendMails") {
+            ScriptApp.deleteTrigger(triggers[i]);
+        }
+    }
+
+    /* Import Gmail Draft Messages into the Spreadsheet */
+   /* var drafts = GmailApp.getDraftMessages();
+    if (drafts.length > 0) {
+        var rows = [];
+        for (var i = 0; i < drafts.length; i++) {
+            if (drafts[i].getTo() !== "") {
+                rows.push([drafts[i].getId(), drafts[i].getTo(), drafts[i].getSubject(), "", ""]);
+            }
+        }
+        sheet.getRange(2, 1, rows.length, 5).setValues(rows);
+    }*/
+}
+
+/* Create time-driven triggers based on Gmail send schedule */
+function setSchedule() {
+    var sheet = SpreadsheetApp.getActiveSheet();
+    var data = sheet.getDataRange().getValues();
+    var time = new Date().getTime();
+    var code = [];
+    for (var row in data) {
+        if (row != 0) {
+            var schedule = data[row][1];
+            if (schedule !== "") {
+                if (schedule.getTime() > time) {
+                    ScriptApp.newTrigger("sendMails")
+                        .timeBased()
+                        .at(schedule)
+                        .inTimezone(SpreadsheetApp.getActiveSpreadsheet().getSpreadsheetTimeZone())
+                        .create();
+                    code.push("Scheduled");
+                } else {
+                    code.push("Date is in the past");
+                }
+            } else {
+                code.push("Not Scheduled");
+            }
+        }
+    }
+    for (var i = 0; i < code.length; i++) {
+        sheet.getRange("C" + (i + 2)).setValue(code[i]);
+    }
+}
+
+function sendArticleCountEmails() {
+  //var ss = SpreadsheetApp.getActiveSpreadsheet();
+  //ss.setActiveSheet(ss.getSheetByName("Send-Emails"));
+  var ss = SpreadsheetApp.getActiveSheet();
+  var dataRange = ss.getRange("D2:J4");
+  var data_msg = dataRange.getValues();
+  for (i in data_msg) {
+    var rowData = data_msg[i];
+    var emailAddress = rowData[1];
+    var recipient = rowData[0];
+    var message1 = rowData[2];
+    var message2 = rowData[3];
+    var parameter2 = rowData[4];
+    var message3 = rowData[5];
+    var message = 'Dear ' + recipient + ',\n\n' + message1 + '\n' + message2 + ' ' + parameter2 + ' ' + message3;
+    var subject = 'Automatically Email V1.1';
+    MailApp.sendEmail(emailAddress, subject, message);
+    //ss.getRange("C" + (row + 1)).setValue("Delivered");
+  }
+}
+
+//var time = new Date().getTime();//reset timer
+function sendMails() {
+    var sheet = SpreadsheetApp.getActiveSheet();
+    var dataRange = sheet.getDataRange();//test
+    var dataMsg = dataRange.getValues();
+    var time = new Date().getTime();
+    for (var row = 1; row < dataMsg.length; row++) {
+        if (dataMsg[row][2] == "Scheduled") {
+            var schedule = dataMsg[row][1];
+          //var time = new Date().getTime();
+           // if ((schedule != "") && ((time - 60) <= schedule.getTime()) &&  (schedule.getTime() <= (time + 60))) {
+           if ((schedule != "") && (schedule.getTime() <= time)){
+              var emailAddress = dataMsg[row][4];
+       
+              var recipient = dataMsg[row][3];
+             
+              var body1 = dataMsg[row][6];
+              var body2 = dataMsg[row][8];
+              var body3 = dataMsg[row][10];
+             
+              var module= dataMsg[row][5];
+              
+              var link1 = dataMsg[row][7];
+              var link2 = dataMsg[row][9];
+             
+              var deadline = dataMsg[row][11];
+             
+              var footer = dataMsg[row][12];
+              var signature = dataMsg[row][13];
+             
+              var message = 'Dear ' + recipient + ',\n\n' + body1 + ' ' + module + ',\n' + body2 + ' ' + link1 + '\n' + 'Tru?c ngày: ' + deadline + '\n\n' + body3 + '\n\n' + footer + '\n' + signature; ;
+              var subject = 'Automatically Email Module ' + module; 
+              //sheet.getRange("K" + (row + 1)) = time;
+              MailApp.sendEmail(emailAddress, subject, message);//send email
+              sheet.getRange("C" + (row + 1)).setValue("Delivered");//update status of schedule   
+            }
+          
+          
+          //var time = new Date().getTime();
+          //SpreadsheetApp.flush();
+        }
+    }
+}
