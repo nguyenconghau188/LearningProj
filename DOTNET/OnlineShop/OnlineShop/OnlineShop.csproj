@@ -312,6 +312,7 @@
     <Content Include="assets\admin\vendor\font-awesome\scss\_spinning.scss" />
     <Content Include="assets\admin\vendor\font-awesome\scss\_stacked.scss" />
     <Content Include="assets\admin\vendor\font-awesome\scss\_variables.scss" />
+    <Content Include="Areas\Admin\Views\Shared\_layout.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -342,7 +343,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Base\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="assets\client\" />
     <Folder Include="Models\" />
   </ItemGroup>

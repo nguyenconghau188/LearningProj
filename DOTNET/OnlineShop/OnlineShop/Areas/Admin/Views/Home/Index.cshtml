@@ -1,19 +1,13 @@
 ﻿
 @{
-    Layout = null;
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_layout.cshtml";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    @{ 
-        var data = (string)ViewData["user"];
-    }
-    <p>username: @data</p>
-</body>
-</html>
+@section header{
+    Home Page
+}
+@{ 
+    var data = (string)ViewData["user"];
+}
+<p>username-> @data </p>
