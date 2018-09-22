@@ -5,9 +5,9 @@ namespace Model.EF
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class OnlineShop : DbContext
+    public partial class OnlineShopDbContext : DbContext
     {
-        public OnlineShop()
+        public OnlineShopDbContext()
             : base("name=OnlineShop1")
         {
         }
