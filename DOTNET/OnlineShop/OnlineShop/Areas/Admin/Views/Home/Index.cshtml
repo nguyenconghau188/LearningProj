@@ -11,7 +11,9 @@
     <title>Index</title>
 </head>
 <body>
-    <div> 
-    </div>
+    @{ 
+        var data = (string)ViewData["user"];
+    }
+    <p>username: @data</p>
 </body>
 </html>
