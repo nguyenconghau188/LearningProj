@@ -8,7 +8,7 @@ namespace Model.EF
     public partial class OnlineShopDbContext : DbContext
     {
         public OnlineShopDbContext()
-            : base("name=OnlineShop1")
+            : base("name=OnlineShopDbContext")
         {
         }
 
@@ -26,6 +26,7 @@ namespace Model.EF
         public virtual DbSet<Slide> Slides { get; set; }
         public virtual DbSet<SystemConfig> SystemConfigs { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -119,6 +120,22 @@ namespace Model.EF
 
             modelBuilder.Entity<SystemConfig>()
                 .Property(e => e.Type)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<User>()
+                .Property(e => e.UserName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<User>()
+                .Property(e => e.Password)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<User>()
+                .Property(e => e.CreatedBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<User>()
+                .Property(e => e.ModifiedBy)
                 .IsUnicode(false);
         }
     }
