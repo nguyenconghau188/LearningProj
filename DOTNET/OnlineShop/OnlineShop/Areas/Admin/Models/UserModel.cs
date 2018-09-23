@@ -22,6 +22,7 @@ namespace OnlineShop.Areas.Admin.Models
         public string Phone { get; set; }
         public bool Status { get; set; }
         public int? Level { get; set; }
+        public string CreateBy { get; set; }
 
         public long AddNewUser()
         {
@@ -34,6 +35,9 @@ namespace OnlineShop.Areas.Admin.Models
             user.Phone = Phone;
             user.Status = Status;
             user.Level = Level;
+            DateTime date = DateTime.Today;
+            user.CreatedDate = date;
+            user.CreatedBy = CreateBy;
             var dao = new Model.Dao.UserDao();
             long userID = dao.Insert(user);
             if (userID > 0)

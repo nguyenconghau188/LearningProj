@@ -27,6 +27,8 @@ namespace OnlineShop.Areas.Admin.Controllers
                     if (user.Password == user.ConfirmPassword)
                     {
                         user.Password = Encryptor.MD5Hash(user.Password);
+                        var session = (UserLogin)Session[CommonConstant.USER_SESSION];
+                        user.CreateBy = session.UserName;
                         long userID = user.AddNewUser();
                         if (userID > 0)
                         {
