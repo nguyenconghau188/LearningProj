@@ -8,11 +8,18 @@ using System.Web.Mvc;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         // GET: Admin/User
         public ActionResult AddUser()
         {
+            List<SelectListItem> Level = new List<SelectListItem>()
+            {
+                new SelectListItem { Text = "Normal User", Value = "1" },
+                new SelectListItem { Text = "Admin", Value = "2" },
+                new SelectListItem { Text = "System Admin", Value = "3" }
+            };
+            ViewBag.Level = Level;
             return View();
         }
 
@@ -24,6 +31,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                 string error = user.CheckExist();
                 if (error == "")
                 {
+                    
                     if (user.Password == user.ConfirmPassword)
                     {
                         user.Password = Encryptor.MD5Hash(user.Password);
@@ -55,6 +63,11 @@ namespace OnlineShop.Areas.Admin.Controllers
                 ModelState.AddModelError("", "Error input!");
             }
             return View("AddUser");
+        }
+
+        public ActionResult ListUser()
+        {
+            return View();
         }
 
         public ActionResult EditUser()

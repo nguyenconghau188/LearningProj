@@ -30,6 +30,16 @@ namespace OnlineShop.Areas.Admin.Controllers
                     userSession.UserId = user.ID;
                     userSession.UserName = user.UserName;
                     Session.Add(CommonConstant.USER_SESSION, userSession);
+
+                    if (Request.Cookies["User"] == null)
+                    {
+                        HttpCookie myCookie = new HttpCookie("User");
+                        myCookie["UserName"] = model.UserName;
+                        myCookie["Password"] = Encryptor.MD5Hash(model.Password);
+                        myCookie.Expires = DateTime.Now.AddMinutes(1);
+                        Response.Cookies.Add(myCookie);
+                    }
+                    
                     return RedirectToAction("Index", "Home");
                 }
                 else

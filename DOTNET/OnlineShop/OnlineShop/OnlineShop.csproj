@@ -318,6 +318,7 @@
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\User\EditUser.cshtml" />
     <Content Include="Areas\Admin\Views\User\AddUser.cshtml" />
+    <Content Include="Areas\Admin\Views\User\ListUser.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

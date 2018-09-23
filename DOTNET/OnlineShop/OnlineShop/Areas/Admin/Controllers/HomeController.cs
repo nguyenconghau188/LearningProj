@@ -14,6 +14,9 @@ namespace OnlineShop.Areas.Admin.Controllers
         {
             var session = (UserLogin)Session[CommonConstant.USER_SESSION];
             ViewData["user"] = session.UserName;
+
+            var cookie = Request.Cookies["User"]["UserName"];
+            ViewData["cookie"] = cookie;
             return View();
         }
     }

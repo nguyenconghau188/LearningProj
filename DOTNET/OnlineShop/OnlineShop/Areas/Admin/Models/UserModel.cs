@@ -20,6 +20,7 @@ namespace OnlineShop.Areas.Admin.Models
         [Required(ErrorMessage = "Please enter email")]
         public string Email { get; set; }
         public string Phone { get; set; }
+        [Display(Name = "Active User ")]
         public bool Status { get; set; }
         public int? Level { get; set; }
         public string CreateBy { get; set; }
@@ -38,6 +39,7 @@ namespace OnlineShop.Areas.Admin.Models
             DateTime date = DateTime.Today;
             user.CreatedDate = date;
             user.CreatedBy = CreateBy;
+            user.Status = Status;
             var dao = new Model.Dao.UserDao();
             long userID = dao.Insert(user);
             if (userID > 0)
