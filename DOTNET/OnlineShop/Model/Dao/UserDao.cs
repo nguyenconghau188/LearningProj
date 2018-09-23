@@ -1,6 +1,7 @@
 ﻿using Model.EF;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,12 +26,19 @@ namespace Model.Dao
 
         public bool Login(string username, string password)
         {
-            int count = db.Users.Count(x => x.UserName == username && x.Password == password);
-            if (count > 0)
+            //int count = db.Users.Count(x => x.UserName == username && x.Password == password);
+            //if (count > 0)
+            //{
+            //    return true;
+            //}
+            //return false;
+            object[] sqlParams =
             {
-                return true;
-            }
-            return false;
+                new SqlParameter("@UserName", username),
+                new SqlParameter("@Password", password)
+            };
+            var res = db.Database.SqlQuery<bool>("Sp_User_Login @UserName, @Password", sqlParams).SingleOrDefault();
+            return res;
         }
 
         public User GetByUsername(string username)

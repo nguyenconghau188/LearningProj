@@ -32,6 +32,10 @@ namespace OnlineShop.Areas.Admin.Controllers
                     Session.Add(CommonConstant.USER_SESSION, userSession);
                     return RedirectToAction("Index", "Home");
                 }
+                else
+                {
+                    ModelState.AddModelError("", "Wrong Username or Password!");
+                }
             }
             else
             {
