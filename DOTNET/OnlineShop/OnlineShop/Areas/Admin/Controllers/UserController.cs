@@ -21,22 +21,30 @@ namespace OnlineShop.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (user.Password == user.ConfirmPassword)
+                string error = user.CheckExist();
+                if (error == "")
                 {
-                    user.Password = Encryptor.MD5Hash(user.Password);
-                    long userID = user.AddNewUser();
-                    if (userID > 0)
+                    if (user.Password == user.ConfirmPassword)
                     {
-                        return RedirectToAction("Index", "Home");
+                        user.Password = Encryptor.MD5Hash(user.Password);
+                        long userID = user.AddNewUser();
+                        if (userID > 0)
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Add error!");
+                        }
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Add error!");
+                        ModelState.AddModelError("", "Password and confirm password are not same!");
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Password and confirm password are not same!");
+                    ModelState.AddModelError("", error);
                 }
 
             }

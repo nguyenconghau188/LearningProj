@@ -42,5 +42,10 @@ namespace OnlineShop.Areas.Admin.Models
             }
             return 0;
         }
+        public string CheckExist()
+        {
+            var dao = new Model.Dao.UserDao();
+            return dao.CheckExist(Username, Email);
+        }
     }
 }
